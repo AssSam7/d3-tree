@@ -171,3 +171,31 @@ db.collection("employees").onSnapshot((res) => {
   });
 });
 ```
+
+## Metrics 📏
+
+The dimensions of the tree diagram and the SVG canvas
+
+### 1. Dimensions of Tree
+
+```javascript
+const dims = { height: 500, width: 1100 };
+```
+
+### 2. Appending the SVG to canvas
+
+```javascript
+const svg = d3
+  .select(".canvas")
+  .append("svg")
+  .attr("width", dims.width + 100)
+  .attr("height", dim.height + 100);
+```
+
+### 3. Creating the graph group
+
+Append the graph group to the SVG and transform i.e. move the graph 50 in the each direction so that it has some room to breathe
+
+```javascript
+const graph = svg.append("g").attr("transform", "translate(50, 50)");
+```

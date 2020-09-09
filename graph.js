@@ -1,4 +1,17 @@
-// data and firestore
+// Dimensions of tree diagram
+const dims = { height: 500, width: 1100 };
+
+// SVG container
+const svg = d3
+  .select(".canvas")
+  .append("svg")
+  .attr("width", dims.width + 100)
+  .attr("height", dim.height + 100);
+
+// Graph group
+const graph = svg.append("g").attr("transform", "translate(50, 50)");
+
+// data and firestore hook-up
 let data = [];
 
 db.collection("employees").onSnapshot((res) => {
