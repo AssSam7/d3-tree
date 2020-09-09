@@ -169,6 +169,8 @@ db.collection("employees").onSnapshot((res) => {
         break;
     }
   });
+
+  update(data);
 });
 ```
 
