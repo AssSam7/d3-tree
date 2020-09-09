@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/badge/firebase-v7.19.0-yellow">
 </p>
 
-> This application is a visualization tool which renders in the form of a tree based on data. It identifies the hierarchy and relationships involved in the data and forms the tree based on this schema.
+> This application is a visualization tool which helps the users to render a tree based on the data feed. It idenitifies the hierarchy in the data based on few parameters like 'parent' and 'dept' etc.
 
 ## Demo 🪁
 
