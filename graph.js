@@ -28,8 +28,31 @@ const update = (data) => {
   // Tree data from the tree generator
   const treeData = tree(rootNode);
 
-  // Joining the data (Enter selection)
-  const nodes = graph.selectAll(".node").data(tree.descendants());
+  // Joining the data to the nodes
+  const nodes = graph.selectAll(".node").data(treeData.descendants());
+
+  // Enter selection (Create node groups)
+  const enterNodes = nodes
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+
+  // Append rects to enter nodes
+  enterNodes
+    .append("rect")
+    .attr("fill", "#aaa")
+    .attr("stroke", "#555")
+    .attr("stroke-width", 2)
+    .attr("height", 50)
+    .attr("width", (d) => d.data.name.length * 20);
+
+  // Append name texts to enter nodes
+  enterNodes
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("fill", "#fff")
+    .text((d) => d.data.name);
 };
 
 // data and firestore hook-up
