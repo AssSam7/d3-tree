@@ -8,6 +8,7 @@
 > This application is a visualization tool which helps the users to render a tree based on the data feed. It idenitifies the hierarchy in the data based on few parameters like 'parent' and 'dept' etc.
 
 ## Demo 🪁
+https://objective-minsky-1384e5.netlify.app/
 
 ## Tech Stack 👩‍💻
 
