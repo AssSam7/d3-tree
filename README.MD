@@ -291,3 +291,94 @@ enterNodes
   .attr("fill", "#fff")
   .text((d) => d.data.name);
 ```
+
+### 6. Links enter selection
+
+To fulfill the purpose of a tree, it needs to have some connections links from one node to another
+
+**Joining the data to the links**
+
+We use links() method to convert the data to the form which generates the paths of drawing the links
+
+```javascript
+const links = graph.selectAll(".link").data(treeData.links());
+```
+
+**Appending the paths**
+
+Above joined data add the **x** and **y\*** co-ordinates required for the path elements drawn through **d3.linkVertical()**
+
+```javascript
+links
+  .enter()
+  .append("path")
+  .attr("class", "link")
+  .attr("fill", "none")
+  .attr("stroke", "#aaa")
+  .attr("stroke-width", 2)
+  .attr(
+    "d",
+    d3
+      .linkVertical()
+      .x((d) => d.x)
+      .y((d) => d.y)
+  );
+```
+
+## Node positions 🪑
+
+Current rects positions needs to translated based on the text (name). Move half-way top and move half way left based on the text length
+
+```javascript
+.attr("transform", (d) => {
+  let x = d.data.name.length * 10;
+  return `translate(-${x}, -25)`;
+})
+```
+
+## Re-Rendering Visualizations 💫
+
+Once the new nodes are added, the current paths needs to re-calculated and drawn coercively. For this app, re-calculating all the positions is bit tricky hence we can remove the **rects** and **links** every time the **update()** function is triggered. This makes the re-draw and no complex issues are raised
+
+```javascript
+graph.selectAll(".node").remove();
+graph.selectAll(".link").remove();
+```
+
+## Coloring and Grouping 🌈
+
+We can color the nodes based on departments. Using an ordinal scale, we can pass a **range** of **colors** with **domain** of **depts** and fill the **rects** based on the **departments**.
+
+**Creating the ordinal scale**
+
+We can use a range of values or any scheme set for random colors
+
+```javascript
+const color = d3.scaleOrdinal(d3["schemeSet2"]);
+```
+
+**Passing the domains on update**
+
+Depts needs to be based as the domain of the ordinal scale
+
+```javascript
+color.domain(data.map((item) => item.dept));
+```
+
+**Using the ordinal scale**
+
+Changing the color of rects by passing them through ordinal scale and giving the particular dept name
+
+```javascript
+.attr("fill", (d) => color(d.data.dept))
+```
+
+## Contributor ✨
+
+- Twitter : [@malsaslam97](https://twitter.com/malsaslam97)
+- Github: [@AssSam7](https://github.com/AssSam7)
+- LinkedIn: [Aslam Mohammed](https://www.linkedin.com/in/malsaslam97/)
+
+## Show your support
+
+Give a ⭐️ if you feel this application has some credibility

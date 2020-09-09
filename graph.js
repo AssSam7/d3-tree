@@ -9,7 +9,7 @@ const svg = d3
   .attr("height", dims.height + 100);
 
 // Graph group
-const graph = svg.append("g").attr("transform", "translate(50, 50)");
+const graph = svg.append("g").attr("transform", "translate(0, 50)");
 
 // Data stratify
 const stratify = d3
@@ -20,8 +20,18 @@ const stratify = d3
 // Tree Generator
 const tree = d3.tree().size([dims.width, dims.height]);
 
+// Ordinal Scale for Colors and Grouping
+const color = d3.scaleOrdinal(d3["schemeSet2"]);
+
 // Update function to re-render the visualizations
 const update = (data) => {
+  // Remove current nodes
+  graph.selectAll(".node").remove();
+  graph.selectAll(".link").remove();
+
+  // Updating the domains of ordinal scale
+  color.domain(data.map((item) => item.dept));
+
   // Get updated root node data
   const rootNode = stratify(data);
 
@@ -60,11 +70,15 @@ const update = (data) => {
   // Append rects to enter nodes
   enterNodes
     .append("rect")
-    .attr("fill", "#aaa")
+    .attr("fill", (d) => color(d.data.dept))
     .attr("stroke", "#555")
     .attr("stroke-width", 2)
     .attr("height", 50)
-    .attr("width", (d) => d.data.name.length * 20);
+    .attr("width", (d) => d.data.name.length * 20)
+    .attr("transform", (d) => {
+      let x = d.data.name.length * 10;
+      return `translate(-${x}, -25)`;
+    });
 
   // Append name texts to enter nodes
   enterNodes
